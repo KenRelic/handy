@@ -79,7 +79,7 @@ function isEditableTarget(target: EventTarget | null) {
 
 export function ThemeProvider({
   children,
-  defaultTheme = "system",
+  defaultTheme = "light",
   storageKey = "theme",
   disableTransitionOnChange = true,
   ...props
@@ -172,11 +172,11 @@ export function ThemeProvider({
       })
     }
 
-    window.addEventListener("keydown", handleKeyDown)
+    // window.addEventListener("keydown", handleKeyDown)
 
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown)
-    }
+    // return () => {
+    //   window.removeEventListener("keydown", handleKeyDown)
+    // }
   }, [storageKey])
 
   React.useEffect(() => {
