@@ -120,89 +120,89 @@ export function ThemeProvider({
     [disableTransitionOnChange]
   )
 
-  React.useEffect(() => {
-    applyTheme(theme)
+  // React.useEffect(() => {
+  //   applyTheme(theme)
 
-    if (theme !== "system") {
-      return undefined
-    }
+  //   if (theme !== "system") {
+  //     return undefined
+  //   }
 
-    const mediaQuery = window.matchMedia(COLOR_SCHEME_QUERY)
-    const handleChange = () => {
-      applyTheme("system")
-    }
+  //   const mediaQuery = window.matchMedia(COLOR_SCHEME_QUERY)
+  //   const handleChange = () => {
+  //     applyTheme("system")
+  //   }
 
-    mediaQuery.addEventListener("change", handleChange)
+  //   mediaQuery.addEventListener("change", handleChange)
 
-    return () => {
-      mediaQuery.removeEventListener("change", handleChange)
-    }
-  }, [theme, applyTheme])
+  //   return () => {
+  //     mediaQuery.removeEventListener("change", handleChange)
+  //   }
+  // }, [theme, applyTheme])
 
-  React.useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.repeat) {
-        return
-      }
+  // React.useEffect(() => {
+  //   const handleKeyDown = (event: KeyboardEvent) => {
+  //     if (event.repeat) {
+  //       return
+  //     }
 
-      if (event.metaKey || event.ctrlKey || event.altKey) {
-        return
-      }
+  //     if (event.metaKey || event.ctrlKey || event.altKey) {
+  //       return
+  //     }
 
-      if (isEditableTarget(event.target)) {
-        return
-      }
+  //     if (isEditableTarget(event.target)) {
+  //       return
+  //     }
 
-      if (event.key.toLowerCase() !== "d") {
-        return
-      }
+  //     if (event.key.toLowerCase() !== "d") {
+  //       return
+  //     }
 
-      setThemeState((currentTheme) => {
-        const nextTheme =
-          currentTheme === "dark"
-            ? "light"
-            : currentTheme === "light"
-              ? "dark"
-              : getSystemTheme() === "dark"
-                ? "light"
-                : "dark"
+  //     setThemeState((currentTheme) => {
+  //       const nextTheme =
+  //         currentTheme === "dark"
+  //           ? "light"
+  //           : currentTheme === "light"
+  //             ? "dark"
+  //             : getSystemTheme() === "dark"
+  //               ? "light"
+  //               : "dark"
 
-        localStorage.setItem(storageKey, nextTheme)
-        return nextTheme
-      })
-    }
+  //       localStorage.setItem(storageKey, nextTheme)
+  //       return nextTheme
+  //     })
+  //   }
 
-    // window.addEventListener("keydown", handleKeyDown)
+  //   window.addEventListener("keydown", handleKeyDown)
 
-    // return () => {
-    //   window.removeEventListener("keydown", handleKeyDown)
-    // }
-  }, [storageKey])
+  //   return () => {
+  //     window.removeEventListener("keydown", handleKeyDown)
+  //   }
+  // }, [storageKey])
 
-  React.useEffect(() => {
-    const handleStorageChange = (event: StorageEvent) => {
-      if (event.storageArea !== localStorage) {
-        return
-      }
+  // React.useEffect(() => {
+  //   const handleStorageChange = (event: StorageEvent) => {
+  //     if (event.storageArea !== localStorage) {
+  //       return
+  //     }
 
-      if (event.key !== storageKey) {
-        return
-      }
+  //     if (event.key !== storageKey) {
+  //       return
+  //     }
 
-      if (isTheme(event.newValue)) {
-        setThemeState(event.newValue)
-        return
-      }
+  //     if (isTheme(event.newValue)) {
+  //       setThemeState(event.newValue)
+  //       return
+  //     }
 
-      setThemeState(defaultTheme)
-    }
+  //     setThemeState(defaultTheme)
+  //   }
 
-    window.addEventListener("storage", handleStorageChange)
+  //   window.addEventListener("storage", handleStorageChange)
 
-    return () => {
-      window.removeEventListener("storage", handleStorageChange)
-    }
-  }, [defaultTheme, storageKey])
+  //   return () => {
+  //     window.removeEventListener("storage", handleStorageChange)
+  //   }
+  // }, [defaultTheme, storageKey])
 
   const value = React.useMemo(
     () => ({
