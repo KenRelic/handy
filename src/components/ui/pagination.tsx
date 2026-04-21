@@ -1,8 +1,12 @@
 import * as React from "react"
 
-import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { ChevronLeftIcon, ChevronRightIcon, MoreHorizontalIcon } from "lucide-react"
+import { cn } from "@/lib/utils"
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  MoreHorizontalIcon,
+} from "lucide-react"
 
 function Pagination({ className, ...props }: React.ComponentProps<"nav">) {
   return (
@@ -63,7 +67,7 @@ function PaginationLink({
 
 function PaginationPrevious({
   className,
-  text = "Previous",
+  text = "",
   ...props
 }: React.ComponentProps<typeof PaginationLink> & { text?: string }) {
   return (
@@ -74,14 +78,14 @@ function PaginationPrevious({
       {...props}
     >
       <ChevronLeftIcon data-icon="inline-start" />
-      <span className="hidden sm:block">{text}</span>
+      {text && <span className="hidden sm:block">{text}</span>}
     </PaginationLink>
   )
 }
 
 function PaginationNext({
   className,
-  text = "Next",
+  text = "",
   ...props
 }: React.ComponentProps<typeof PaginationLink> & { text?: string }) {
   return (
@@ -91,7 +95,7 @@ function PaginationNext({
       className={cn("pr-2!", className)}
       {...props}
     >
-      <span className="hidden sm:block">{text}</span>
+      {text && <span className="hidden sm:block">{text}</span>}
       <ChevronRightIcon data-icon="inline-end" />
     </PaginationLink>
   )
@@ -111,8 +115,7 @@ function PaginationEllipsis({
       )}
       {...props}
     >
-      <MoreHorizontalIcon
-      />
+      <MoreHorizontalIcon />
       <span className="sr-only">More pages</span>
     </span>
   )
