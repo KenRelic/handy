@@ -2,7 +2,7 @@
 import * as React from "react"
 
 type Theme = "dark" | "light" | "system"
-type ResolvedTheme = "dark" | "light"
+// type ResolvedTheme = "dark" | "light"
 
 type ThemeProviderProps = {
   children: React.ReactNode
@@ -16,7 +16,7 @@ type ThemeProviderState = {
   setTheme: (theme: Theme) => void
 }
 
-const COLOR_SCHEME_QUERY = "(prefers-color-scheme: dark)"
+// const COLOR_SCHEME_QUERY = "(prefers-color-scheme: dark)"
 const THEME_VALUES: Theme[] = ["dark", "light", "system"]
 
 const ThemeProviderContext = React.createContext<
@@ -31,57 +31,57 @@ function isTheme(value: string | null): value is Theme {
   return THEME_VALUES.includes(value as Theme)
 }
 
-function getSystemTheme(): ResolvedTheme {
-  if (window.matchMedia(COLOR_SCHEME_QUERY).matches) {
-    return "dark"
-  }
+// function getSystemTheme(): ResolvedTheme {
+//   if (window.matchMedia(COLOR_SCHEME_QUERY).matches) {
+//     return "dark"
+//   }
 
-  return "light"
-}
+//   return "light"
+// }
 
-function disableTransitionsTemporarily() {
-  const style = document.createElement("style")
-  style.appendChild(
-    document.createTextNode(
-      "*,*::before,*::after{-webkit-transition:none!important;transition:none!important}"
-    )
-  )
-  document.head.appendChild(style)
+// function disableTransitionsTemporarily() {
+//   const style = document.createElement("style")
+//   style.appendChild(
+//     document.createTextNode(
+//       "*,*::before,*::after{-webkit-transition:none!important;transition:none!important}"
+//     )
+//   )
+//   document.head.appendChild(style)
 
-  return () => {
-    window.getComputedStyle(document.body)
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        style.remove()
-      })
-    })
-  }
-}
+//   return () => {
+//     window.getComputedStyle(document.body)
+//     requestAnimationFrame(() => {
+//       requestAnimationFrame(() => {
+//         style.remove()
+//       })
+//     })
+//   }
+// }
 
-function isEditableTarget(target: EventTarget | null) {
-  if (!(target instanceof HTMLElement)) {
-    return false
-  }
+// function isEditableTarget(target: EventTarget | null) {
+//   if (!(target instanceof HTMLElement)) {
+//     return false
+//   }
 
-  if (target.isContentEditable) {
-    return true
-  }
+//   if (target.isContentEditable) {
+//     return true
+//   }
 
-  const editableParent = target.closest(
-    "input, textarea, select, [contenteditable='true']"
-  )
-  if (editableParent) {
-    return true
-  }
+//   const editableParent = target.closest(
+//     "input, textarea, select, [contenteditable='true']"
+//   )
+//   if (editableParent) {
+//     return true
+//   }
 
-  return false
-}
+//   return false
+// }
 
 export function ThemeProvider({
   children,
   defaultTheme = "light",
   storageKey = "theme",
-  disableTransitionOnChange = true,
+  // disableTransitionOnChange = true,
   ...props
 }: ThemeProviderProps) {
   const [theme, setThemeState] = React.useState<Theme>(() => {
@@ -101,24 +101,24 @@ export function ThemeProvider({
     [storageKey]
   )
 
-  const applyTheme = React.useCallback(
-    (nextTheme: Theme) => {
-      const root = document.documentElement
-      const resolvedTheme =
-        nextTheme === "system" ? getSystemTheme() : nextTheme
-      const restoreTransitions = disableTransitionOnChange
-        ? disableTransitionsTemporarily()
-        : null
+  // const applyTheme = React.useCallback(
+  //   (nextTheme: Theme) => {
+  //     const root = document.documentElement
+  //     const resolvedTheme =
+  //       nextTheme === "system" ? getSystemTheme() : nextTheme
+  //     const restoreTransitions = disableTransitionOnChange
+  //       ? disableTransitionsTemporarily()
+  //       : null
 
-      root.classList.remove("light", "dark")
-      root.classList.add(resolvedTheme)
+  //     root.classList.remove("light", "dark")
+  //     root.classList.add(resolvedTheme)
 
-      if (restoreTransitions) {
-        restoreTransitions()
-      }
-    },
-    [disableTransitionOnChange]
-  )
+  //     if (restoreTransitions) {
+  //       restoreTransitions()
+  //     }
+  //   },
+  //   [disableTransitionOnChange]
+  // )
 
   // React.useEffect(() => {
   //   applyTheme(theme)
